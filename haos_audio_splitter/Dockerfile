@@ -2,7 +2,7 @@
 FROM ghcr.io/home-assistant/amd64-base-debian:latest
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-        pulseaudio pulseaudio-utils vlc \
+        pulseaudio pulseaudio-utils vlc ladspa-sdk swh-plugins \
     && useradd -m audioaddon \
     && chown -R audioaddon /home/audioaddon \
     && apt-get clean \

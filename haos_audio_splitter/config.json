@@ -1,6 +1,6 @@
 {
   "name": "HAOS Audio Splitter",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "slug": "haos_audio_splitter",
   "description": "Splits stereo USB audio into two mono MQTT media players.",
   "startup": "services",
