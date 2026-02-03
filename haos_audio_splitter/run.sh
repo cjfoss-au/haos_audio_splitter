@@ -1,44 +1,26 @@
-# Debug: print all detected soundcards
-echo "Detected soundcards (arecord -l):"
-arecord -l || true
 
 #!/bin/bash
 
-CONFIG_PATH="/data/options.json"
-if [ -f "$CONFIG_PATH" ]; then
-  AUDIO_DEVICE=$(jq -r '.audio_device' "$CONFIG_PATH")
-else
-  AUDIO_DEVICE="hw:1,0"
+# Start PulseAudio in system mode
+pulseaudio --start --system --disallow-exit --disable-shm &
+sleep 2
+
+# Find the default sink (should be the USB device)
+DEFAULT_SINK=$(pactl list short sinks | grep -m1 -i usb | awk '{print $2}')
+if [ -z "$DEFAULT_SINK" ]; then
+  DEFAULT_SINK=$(pactl list short sinks | head -n1 | awk '{print $2}')
 fi
-# Set MQTT info (customize as needed)
-MQTT_HOST="homeassistant.local"
-MQTT_PORT=1883
-MQTT_USER=""
-MQTT_PASS=""
+echo "Default PulseAudio sink: $DEFAULT_SINK"
 
+# Create two mono sinks: left and right
+pactl load-module module-remap-sink sink_name=mono_left master=$DEFAULT_SINK channels=2 channel_map=mono,mono master_channel_map=front-left,front-right remix=no
+pactl load-module module-remap-sink sink_name=mono_right master=$DEFAULT_SINK channels=2 channel_map=mono,mono master_channel_map=front-right,front-left remix=no
 
-# Check if audio device exists
-if ! arecord -l | grep -q "$AUDIO_DEVICE"; then
-  echo "Audio device $AUDIO_DEVICE not found. Exiting."
-  exit 1
-fi
+# Start two VLC instances, each bound to a different sink, listening for telnet control
+cvlc --intf telnet --telnet-password leftpass --telnet-port 4212 --aout=pulse --pulse-audio-device=mono_left &
+cvlc --intf telnet --telnet-password rightpass --telnet-port 4213 --aout=pulse --pulse-audio-device=mono_right &
 
-# Record and split stereo to two mono files (left/right)
-arecord -D $AUDIO_DEVICE -f S16_LE -c2 -r 44100 | \
-  ffmpeg -y -f s16le -ar 44100 -ac 2 -i - \
-    -map_channel 0.0.0 -ac 1 left.wav \
-    -map_channel 0.0.1 -ac 1 right.wav
+echo "Left VLC: telnet port 4212, sink mono_left. Right VLC: telnet port 4213, sink mono_right."
 
-# Publish to MQTT (example, replace with streaming logic)
-if [ -f left.wav ]; then
-  mosquitto_pub -h $MQTT_HOST -p $MQTT_PORT -t "haos_audio_splitter/left" -f left.wav
-else
-  echo "left.wav not found, skipping MQTT publish."
-fi
-if [ -f right.wav ]; then
-  mosquitto_pub -h $MQTT_HOST -p $MQTT_PORT -t "haos_audio_splitter/right" -f right.wav
-else
-  echo "right.wav not found, skipping MQTT publish."
-fi
-
-# TODO: Loop or daemonize as needed
+# Keep the container running
+tail -f /dev/null
