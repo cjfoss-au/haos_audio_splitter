@@ -1,16 +1,18 @@
 {
   "name": "HAOS Audio Splitter",
-  "version": "0.2.19",
+  "version": "0.2.20",
   "slug": "haos_audio_splitter",
   "description": "Splits stereo USB audio into two mono MQTT media players.",
   "startup": "services",
   "boot": "auto",
   "arch": ["amd64", "armv7", "aarch64"],
   "options": {
-    "audio_device": "hw:1,0"
+    "audio_device": "hw:1,0",
+    "channel_test_mode": false
   },
   "schema": {
-    "audio_device": "str"
+    "audio_device": "str",
+    "channel_test_mode": "bool"
   },
   "ingress": false,
   "host_network": true,
