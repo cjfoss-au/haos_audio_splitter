@@ -24,8 +24,8 @@ if [ "$CHANNEL_TEST_MODE" = "true" ]; then
   # Wait to ensure test_stereo.wav is fully written
   sleep 2
   # Always generate left and right channel files from test_stereo.wav (overwrite if needed)
-  su - audioaddon -c "ffmpeg -y -i /media/test_stereo.wav -af 'pan=stereo|c0=c0|c1=0' /media/test_left.wav 2>/media/ffmpeg_left.log"
-    su - audioaddon -c "ffmpeg -y -i /media/test_stereo.wav -af 'pan=stereo|c0=0|c1=c1' /media/test_right.wav 2>/media/ffmpeg_right.log"
+  su - audioaddon -c "ffmpeg -y -loglevel debug -i /media/test_stereo.wav -af 'pan=mono|c0=FL' /media/test_left.wav 2>/media/ffmpeg_left.log"
+  su - audioaddon -c "ffmpeg -y -loglevel debug -i /media/test_stereo.wav -af 'pan=mono|c0=FR' /media/test_right.wav 2>/media/ffmpeg_right.log"
   echo "Test files created: /media/test_stereo.wav, /media/test_left.wav, /media/test_right.wav"
 else
   # Use ffmpeg to mute one channel per stream and send to VLC
