@@ -6,6 +6,9 @@ echo "Starting PulseAudio and VLC as audioaddon user..."
 echo "Listing LADSPA plugins in /usr/lib/ladspa and /usr/lib64/ladspa:"
 ls /usr/lib/ladspa 2>/dev/null || echo "/usr/lib/ladspa not found"
 ls /usr/lib64/ladspa 2>/dev/null || echo "/usr/lib64/ladspa not found"
+
+export LADSPA_PATH=/usr/lib/ladspa
+echo "LADSPA_PATH set to: $LADSPA_PATH"
 su - audioaddon -c "pulseaudio --daemonize --disallow-exit --disable-shm"
 sleep 2
 
