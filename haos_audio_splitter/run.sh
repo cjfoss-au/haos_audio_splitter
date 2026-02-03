@@ -1,8 +1,8 @@
 #!/bin/bash
 
 echo "Starting ffmpeg to split stereo input into two mono streams..."
-su - audioaddon -c "ffmpeg -f alsa -i hw:1,0 -map_channel 0.0.0 -f wav - | cvlc --intf telnet --telnet-password leftpass --telnet-port 4212 - &"
-su - audioaddon -c "ffmpeg -f alsa -i hw:1,0 -map_channel 0.0.1 -f wav - | cvlc --intf telnet --telnet-password rightpass --telnet-port 4213 - &"
+su - audioaddon -c "ffmpeg -f pulse -i default -af 'pan=mono|c0=c0' -f wav - | cvlc --intf telnet --telnet-password leftpass --telnet-port 4212 - &"
+su - audioaddon -c "ffmpeg -f pulse -i default -af 'pan=mono|c0=c1' -f wav - | cvlc --intf telnet --telnet-password rightpass --telnet-port 4213 - &"
 
 echo "Left VLC: telnet port 4212, right VLC: telnet port 4213. Each receives a mono stream from ffmpeg."
 
