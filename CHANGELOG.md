@@ -15,3 +15,8 @@
 ## 0.2.38
 - Remove old VLC/ffmpeg pipeline from run.sh
 - Only run MQTT media player script as main process
+
+## 0.2.39
+- Remove all old remap sinks on startup
+- Create only two new remap sinks: 'HAOS Left Output' and 'HAOS Right Output' with clear names
+- Remove all old pipeline code from run.sh
