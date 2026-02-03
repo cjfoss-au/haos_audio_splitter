@@ -19,8 +19,11 @@ if [ "$CHANNEL_TEST_MODE" = "true" ]; then
   su - audioaddon -c "ffmpeg -f lavfi -i anoisesrc=color=pink:duration=10 -f wav - | paplay --device=$USB_SINK &"
   # Record from monitor source
   su - audioaddon -c "ffmpeg -f pulse -i $MONITOR_SOURCE -t 10 -acodec pcm_s16le /media/test_stereo.wav"
-  su - audioaddon -c "ffmpeg -i /media/test_stereo.wav -af 'pan=stereo|c0=c0|c1=0' /media/test_left.wav"
-  su - audioaddon -c "ffmpeg -i /media/test_stereo.wav -af 'pan=stereo|c0=0|c1=c1' /media/test_right.wav"
+  # Wait to ensure test_stereo.wav is fully written
+  sleep 2
+  # Generate left and right channel files with error logging
+  su - audioaddon -c "ffmpeg -i /media/test_stereo.wav -af 'pan=stereo|c0=c0|c1=0' /media/test_left.wav 2>/media/ffmpeg_left.log"
+  su - audioaddon -c "ffmpeg -i /media/test_stereo.wav -af 'pan=stereo|c0=0|c1=c1' /media/test_right.wav 2>/media/ffmpeg_right.log"
   echo "Test files created: /media/test_stereo.wav, /media/test_left.wav, /media/test_right.wav"
 else
   # Use ffmpeg to mute one channel per stream and send to VLC
