@@ -1,3 +1,7 @@
+# Debug: print all detected soundcards
+echo "Detected soundcards (arecord -l):"
+arecord -l || true
+
 #!/bin/bash
 
 # Set device and MQTT info (customize as needed)
