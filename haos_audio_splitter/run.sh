@@ -49,4 +49,7 @@ echo "Left VLC: telnet port 4212, right VLC: telnet port 4213. Each receives a s
 
 echo "Left VLC: telnet port 4212, right VLC: telnet port 4213. Each receives a mono stream from ffmpeg."
 
+# Start the MQTT media player script as the main process
+python3 /haos_audio_splitter/mqtt_media_player.py
+
 tail -f /dev/null

@@ -11,3 +11,7 @@
 ## 0.2.37
 - Add MQTT config options (broker, port, user, pass, discovery prefix) to config.json for UI configuration
 - Update mqtt_media_player.py to read config from /data/options.json
+
+## 0.2.38
+- Remove old VLC/ffmpeg pipeline from run.sh
+- Only run MQTT media player script as main process
