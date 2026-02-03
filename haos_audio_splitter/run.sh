@@ -12,8 +12,8 @@ if [ -z "$DEFAULT_SINK" ]; then
 fi
 echo "Default PulseAudio sink: $DEFAULT_SINK"
 
-su - audioaddon -c "pactl load-module module-remap-sink sink_name=mono_left master=$DEFAULT_SINK channels=2 channel_map=mono,mono master_channel_map=front-left,front-right remix=no"
-su - audioaddon -c "pactl load-module module-remap-sink sink_name=mono_right master=$DEFAULT_SINK channels=2 channel_map=mono,mono master_channel_map=front-right,front-left remix=no"
+su - audioaddon -c "pactl load-module module-remap-sink sink_name=mono_left master=$DEFAULT_SINK channels=1 channel_map=mono master_channel_map=front-left remix=no"
+su - audioaddon -c "pactl load-module module-remap-sink sink_name=mono_right master=$DEFAULT_SINK channels=1 channel_map=mono master_channel_map=front-right remix=no"
 
 su - audioaddon -c "PULSE_SINK=mono_left cvlc --intf telnet --telnet-password leftpass --telnet-port 4212 --aout=pulse &"
 su - audioaddon -c "PULSE_SINK=mono_right cvlc --intf telnet --telnet-password rightpass --telnet-port 4213 --aout=pulse &"
