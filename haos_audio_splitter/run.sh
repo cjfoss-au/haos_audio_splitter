@@ -2,15 +2,12 @@
 
 echo "Starting ffmpeg to split stereo input into two mono streams..."
 
-# Create mono sinks for left and right channels
-su - audioaddon -c "pactl load-module module-remap-sink sink_name=mono_left master=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo channels=1 channel_map=front-left remix=no"
-su - audioaddon -c "pactl load-module module-remap-sink sink_name=mono_right master=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo channels=1 channel_map=front-right remix=no"
 
-# Start VLC instances for each mono sink
-su - audioaddon -c "PULSE_SINK=mono_left cvlc --intf telnet --telnet-password leftpass --telnet-port 4212 --aout=pulse &"
-su - audioaddon -c "PULSE_SINK=mono_right cvlc --intf telnet --telnet-password rightpass --telnet-port 4213 --aout=pulse &"
+# Use ffmpeg to mute one channel per stream and send to VLC
+su - audioaddon -c "ffmpeg -f pulse -i default -af 'pan=stereo|c0=c0|c1=0' -f wav - | cvlc --intf telnet --telnet-password leftpass --telnet-port 4212 - &"
+su - audioaddon -c "ffmpeg -f pulse -i default -af 'pan=stereo|c0=0|c1=c1' -f wav - | cvlc --intf telnet --telnet-password rightpass --telnet-port 4213 - &"
 
-echo "Left VLC: telnet port 4212, sink mono_left. Right VLC: telnet port 4213, sink mono_right."
+echo "Left VLC: telnet port 4212, right VLC: telnet port 4213. Each receives a stereo stream with only its assigned channel."
 
 echo "Left VLC: telnet port 4212, right VLC: telnet port 4213. Each receives a mono stream from ffmpeg."
 
