@@ -8,11 +8,21 @@
   "arch": ["amd64", "armv7", "aarch64"],
   "options": {
     "audio_device": "hw:1,0",
-    "channel_test_mode": false
+    "channel_test_mode": false,
+    "mqtt_broker": "localhost",
+    "mqtt_port": 1883,
+    "mqtt_user": "",
+    "mqtt_pass": "",
+    "mqtt_discovery_prefix": "homeassistant"
   },
   "schema": {
     "audio_device": "str",
-    "channel_test_mode": "bool"
+    "channel_test_mode": "bool",
+    "mqtt_broker": "str",
+    "mqtt_port": "int",
+    "mqtt_user": "str",
+    "mqtt_pass": "str",
+    "mqtt_discovery_prefix": "str"
   },
   "ingress": false,
   "host_network": true,
