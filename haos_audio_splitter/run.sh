@@ -2,6 +2,11 @@
 
 echo "Starting ffmpeg to split stereo input into two mono streams..."
 
+# Ensure /media directory exists and is writable
+mkdir -p /media
+chown audioaddon:audioaddon /media
+chmod 775 /media
+
 # Check for channel_test_mode in options.json
 CHANNEL_TEST_MODE=$(jq -r '.channel_test_mode' /data/options.json)
 if [ "$CHANNEL_TEST_MODE" = "true" ]; then
