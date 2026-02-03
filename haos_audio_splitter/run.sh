@@ -32,14 +32,14 @@ CHANNEL_TEST_MODE=$(jq -r '.channel_test_mode' /data/options.json)
 # Write ffmpeg+VLC commands to temp scripts to avoid quoting issues
 cat <<'EOF' > /tmp/left_ffmpeg_vlc.sh
 #!/bin/bash
-ffmpeg -f pulse -i default -af 'pan=stereo|c0=FL|c1=0' -f wav - | cvlc --intf telnet --telnet-password leftpass --telnet-port 4212 -
+ffmpeg -f pulse -i default -af pan=stereo\|c0=FL\|c1=0 -f wav - | cvlc --intf telnet --telnet-password leftpass --telnet-port 4212 -
 EOF
 chmod +x /tmp/left_ffmpeg_vlc.sh
 su - audioaddon -c "bash /tmp/left_ffmpeg_vlc.sh" &
 
 cat <<'EOF' > /tmp/right_ffmpeg_vlc.sh
 #!/bin/bash
-ffmpeg -f pulse -i default -af 'pan=stereo|c0=0|c1=FR' -f wav - | cvlc --intf telnet --telnet-password rightpass --telnet-port 4213 -
+ffmpeg -f pulse -i default -af pan=stereo\|c0=0\|c1=FR -f wav - | cvlc --intf telnet --telnet-password rightpass --telnet-port 4213 -
 EOF
 chmod +x /tmp/right_ffmpeg_vlc.sh
 su - audioaddon -c "bash /tmp/right_ffmpeg_vlc.sh" &
