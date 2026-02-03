@@ -29,8 +29,21 @@ CHANNEL_TEST_MODE=$(jq -r '.channel_test_mode' /data/options.json)
 #  echo "Test files created: /media/test_stereo.wav, /media/test_left.wav, /media/test_right.wav"
 #else
 # Use ffmpeg to mute one channel per stream and send to VLC
-su - audioaddon -c "ffmpeg -f pulse -i default -af 'pan=stereo|c0=FL|c1=0' -f wav - | cvlc --intf telnet --telnet-password leftpass --telnet-port 4212 - &"
-su - audioaddon -c "ffmpeg -f pulse -i default -af 'pan=stereo|c0=0|c1=FR' -f wav - | cvlc --intf telnet --telnet-password rightpass --telnet-port 4213 - &"
+# Write ffmpeg+VLC commands to temp scripts to avoid quoting issues
+cat <<'EOF' > /tmp/left_ffmpeg_vlc.sh
+#!/bin/bash
+exec ffmpeg -f pulse -i default -af pan=stereo|c0=FL|c1=0 -f wav - | cvlc --intf telnet --telnet-password leftpass --telnet-port 4212 -
+EOF
+chmod +x /tmp/left_ffmpeg_vlc.sh
+su - audioaddon -c /tmp/left_ffmpeg_vlc.sh &
+
+cat <<'EOF' > /tmp/right_ffmpeg_vlc.sh
+#!/bin/bash
+exec ffmpeg -f pulse -i default -af pan=stereo|c0=0|c1=FR -f wav - | cvlc --intf telnet --telnet-password rightpass --telnet-port 4213 -
+EOF
+chmod +x /tmp/right_ffmpeg_vlc.sh
+su - audioaddon -c /tmp/right_ffmpeg_vlc.sh &
+
 echo "Left VLC: telnet port 4212, right VLC: telnet port 4213. Each receives a stereo stream with only its assigned channel."
 #fi
 
