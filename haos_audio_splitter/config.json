@@ -1,6 +1,6 @@
 {
   "name": "HAOS Audio Splitter",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "slug": "haos_audio_splitter",
   "description": "Splits stereo USB audio into two mono MQTT media players.",
   "startup": "services",
@@ -11,6 +11,7 @@
   "ingress": false,
   "host_network": true,
   "privileged": ["SYS_RAWIO", "DAC_READ_SEARCH"],
+  "devices": ["/dev/snd:/dev/snd:rwm"],
   "map": ["config:rw", "ssl:rw", "media:rw"],
   "url": "https://github.com/your-repo/haos_audio_splitter"
 }
