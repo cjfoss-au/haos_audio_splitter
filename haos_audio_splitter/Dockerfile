@@ -1,7 +1,5 @@
 FROM ghcr.io/home-assistant/amd64-base-debian:latest
 
-# Troubleshooting: show sources and versions
-RUN cat /etc/apt/sources.list && cat /etc/os-release
 
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
