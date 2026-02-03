@@ -1,8 +1,9 @@
 
 #!/bin/bash
 
-# Start PulseAudio in system mode
-pulseaudio --start --system --disallow-exit --disable-shm &
+
+# Start PulseAudio in user mode
+pulseaudio --daemonize --disallow-exit --disable-shm &
 sleep 2
 
 # Find the default sink (should be the USB device)
