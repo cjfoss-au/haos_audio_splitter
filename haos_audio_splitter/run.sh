@@ -4,8 +4,13 @@ arecord -l || true
 
 #!/bin/bash
 
-# Set device and MQTT info (customize as needed)
-AUDIO_DEVICE="hw:1,0"
+CONFIG_PATH="/data/options.json"
+if [ -f "$CONFIG_PATH" ]; then
+  AUDIO_DEVICE=$(jq -r '.audio_device' "$CONFIG_PATH")
+else
+  AUDIO_DEVICE="hw:1,0"
+fi
+# Set MQTT info (customize as needed)
 MQTT_HOST="homeassistant.local"
 MQTT_PORT=1883
 MQTT_USER=""
