@@ -20,3 +20,6 @@
 - Remove all old remap sinks on startup
 - Create only two new remap sinks: 'HAOS Left Output' and 'HAOS Right Output' with clear names
 - Remove all old pipeline code from run.sh
+
+## 0.2.40
+- Add python3, pip, and required Python packages (paho-mqtt, requests) to Dockerfile for MQTT media player support

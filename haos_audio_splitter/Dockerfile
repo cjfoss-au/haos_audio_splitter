@@ -1,8 +1,9 @@
-
 FROM ghcr.io/home-assistant/amd64-base-debian:latest
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         pulseaudio pulseaudio-utils vlc ffmpeg ladspa-sdk swh-plugins \
+        python3 python3-pip \
+    && pip3 install paho-mqtt requests \
     && useradd -m audioaddon \
     && chown -R audioaddon /home/audioaddon \
     && apt-get clean \
