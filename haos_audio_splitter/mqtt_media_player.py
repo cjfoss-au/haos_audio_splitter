@@ -7,6 +7,16 @@ import paho.mqtt.client as mqtt
 import requests
 import subprocess
 
+# Default config values
+MQTT_BROKER = 'localhost'
+MQTT_PORT = 1883
+MQTT_USER = ''
+MQTT_PASS = ''
+MQTT_CLIENT_ID = 'haos_audio_splitter'
+MQTT_TOPIC = 'homeassistant/media_player/haos_audio_splitter/set'
+MQTT_DISCOVERY_PREFIX = 'homeassistant'
+AUDIO_DEVICE = 'alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo'
+
 # Read MQTT config from /data/options.json if available
 try:
     with open('/data/options.json') as f:
@@ -19,16 +29,6 @@ try:
         AUDIO_DEVICE = opts.get('audio_device', AUDIO_DEVICE)
 except Exception as e:
     print(f"Could not read /data/options.json: {e}")
-
-MQTT_BROKER = os.environ.get('MQTT_BROKER', 'localhost')
-MQTT_PORT = int(os.environ.get('MQTT_PORT', 1883))
-MQTT_USER = os.environ.get('MQTT_USER', '')
-MQTT_PASS = os.environ.get('MQTT_PASS', '')
-MQTT_CLIENT_ID = os.environ.get('MQTT_CLIENT_ID', 'haos_audio_splitter')
-MQTT_TOPIC = os.environ.get('MQTT_TOPIC', 'homeassistant/media_player/haos_audio_splitter/set')
-MQTT_DISCOVERY_PREFIX = os.environ.get('MQTT_DISCOVERY_PREFIX', 'homeassistant')
-
-AUDIO_DEVICE = os.environ.get('AUDIO_DEVICE', 'alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo')
 
 # Home Assistant MQTT Discovery
 DISCOVERY_PAYLOAD = {
@@ -91,7 +91,7 @@ def play_audio(url, channel='left'):
         print(f"Error playing audio: {e}")
 
 def main():
-    client = mqtt.Client(MQTT_CLIENT_ID)
+    client = mqtt.Client(MQTT_CLIENT_ID, callback_api_version=5)
     if MQTT_USER:
         client.username_pw_set(MQTT_USER, MQTT_PASS)
     client.on_connect = on_connect

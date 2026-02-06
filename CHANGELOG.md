@@ -43,3 +43,7 @@
 ## 0.2.45
 - Add COPY command for mqtt_media_player.py in Dockerfile so script is available in container
 - Bump version to 0.2.45
+
+## 0.2.46
+- Fix config variable scoping and paho-mqtt callback API version in mqtt_media_player.py
+- Bump version to 0.2.46
