@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.3.3
+- Print all available sinks and detailed PulseAudio info before remap sink creation for debugging
+
 ## 0.3.2
 - Add error checking and detailed logging for remap sink creation in run.sh
 

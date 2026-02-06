@@ -16,6 +16,15 @@ done
 
 echo "USB audio device found: $USB_SINK"
 
+echo "\n==== Available PulseAudio Sinks (pactl list short sinks) ===="
+pactl list short sinks
+
+echo "\n==== Detailed Sink Info (pactl list sinks) ===="
+pactl list sinks
+
+echo "\n==== PulseAudio Server Info (pactl info) ===="
+pactl info
+
 # Clean up any old remap sinks by name if they exist
 for SINK in haos_left_output haos_right_output; do
     MODULE_ID=$(pactl list short modules | grep "sink_name=$SINK" | awk '{print $1}')
