@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1
+- Remove leftover python3 call from run.sh
+- Finalize minimal PulseAudio sink splitter addon
+
 ## 0.2.35
 - Escape | in pan filter for ffmpeg in temp script
 - Bump version for Home Assistant update detection

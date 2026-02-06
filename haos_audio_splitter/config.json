@@ -1,6 +1,6 @@
 {
   "name": "HAOS Audio Splitter",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "slug": "haos_audio_splitter",
   "description": "Splits stereo USB audio into two mono PulseAudio sinks for left/right channel isolation.",
   "startup": "services",
