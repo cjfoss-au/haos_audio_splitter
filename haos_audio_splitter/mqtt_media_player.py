@@ -91,7 +91,7 @@ def play_audio(url, channel='left'):
         print(f"Error playing audio: {e}")
 
 def main():
-    client = mqtt.Client(client_id=MQTT_CLIENT_ID, callback_api_version=5)
+    client = mqtt.Client(client_id=MQTT_CLIENT_ID)
     if MQTT_USER:
         client.username_pw_set(MQTT_USER, MQTT_PASS)
     client.on_connect = on_connect

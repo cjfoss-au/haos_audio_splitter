@@ -51,3 +51,7 @@
 ## 0.2.47
 - Fix paho-mqtt Client constructor to use keyword arguments for client_id and callback_api_version
 - Bump version to 0.2.47
+
+## 0.2.48
+- Remove callback_api_version argument from paho-mqtt Client constructor for maximum compatibility
+- Bump version to 0.2.48
