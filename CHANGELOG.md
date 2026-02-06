@@ -23,3 +23,7 @@
 
 ## 0.2.40
 - Add python3, pip, and required Python packages (paho-mqtt, requests) to Dockerfile for MQTT media player support
+
+## 0.2.41
+- Remove ladspa-sdk and swh-plugins from Dockerfile to fix build errors
+- Only install required packages for MQTT and playback
