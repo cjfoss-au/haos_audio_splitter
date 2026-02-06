@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.3.2
+- Add error checking and detailed logging for remap sink creation in run.sh
+
 ## 0.3.1
 - Remove leftover python3 call from run.sh
 - Finalize minimal PulseAudio sink splitter addon
