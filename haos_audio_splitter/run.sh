@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export PULSE_SERVER=unix:/run/audio/pulse.sock
+
 DEFAULT_SINK=$(pactl list short sinks | grep -m1 -i usb | awk '{print $2}')
 if [ -z "$DEFAULT_SINK" ]; then
   DEFAULT_SINK=$(pactl list short sinks | head -n1 | awk '{print $2}')
