@@ -39,3 +39,7 @@
 ## 0.2.44
 - Add check and delay in run.sh to wait for USB audio device before creating remap sinks
 - Bump version to 0.2.44
+
+## 0.2.45
+- Add COPY command for mqtt_media_player.py in Dockerfile so script is available in container
+- Bump version to 0.2.45

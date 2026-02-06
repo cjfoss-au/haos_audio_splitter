@@ -8,5 +8,6 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 COPY run.sh /run.sh
+COPY mqtt_media_player.py /haos_audio_splitter/mqtt_media_player.py
 RUN chmod +x /run.sh
 ENTRYPOINT ["/run.sh"]
