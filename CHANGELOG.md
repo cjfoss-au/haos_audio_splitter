@@ -55,3 +55,8 @@
 ## 0.2.48
 - Remove callback_api_version argument from paho-mqtt Client constructor for maximum compatibility
 - Bump version to 0.2.48
+
+## 0.3.0
+- Remove all MQTT, Python, and media player code
+- Only create PulseAudio remap sinks for left/right channel isolation
+- Minimal addon for sink management

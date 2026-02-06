@@ -1,28 +1,16 @@
 {
   "name": "HAOS Audio Splitter",
-  "version": "0.2.48",
+  "version": "0.3.0",
   "slug": "haos_audio_splitter",
-  "description": "Splits stereo USB audio into two mono MQTT media players.",
+  "description": "Splits stereo USB audio into two mono PulseAudio sinks for left/right channel isolation.",
   "startup": "services",
   "boot": "auto",
   "arch": ["amd64", "armv7", "aarch64"],
   "options": {
-    "audio_device": "hw:1,0",
-    "channel_test_mode": false,
-    "mqtt_broker": "localhost",
-    "mqtt_port": 1883,
-    "mqtt_user": "",
-    "mqtt_pass": "",
-    "mqtt_discovery_prefix": "homeassistant"
+    "audio_device": "hw:1,0"
   },
   "schema": {
-    "audio_device": "str",
-    "channel_test_mode": "bool",
-    "mqtt_broker": "str",
-    "mqtt_port": "int",
-    "mqtt_user": "str",
-    "mqtt_pass": "str",
-    "mqtt_discovery_prefix": "str"
+    "audio_device": "str"
   },
   "ingress": false,
   "host_network": true,
