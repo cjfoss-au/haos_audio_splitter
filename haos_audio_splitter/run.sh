@@ -25,5 +25,5 @@ pactl load-module module-remap-sink sink_name=haos_right_output sink_properties=
 
 echo "Created PulseAudio sinks: HAOS Left Output and HAOS Right Output."
 
-# Start the MQTT media player script as the main process
-python3 /haos_audio_splitter/mqtt_media_player.py
+# Keep the container running
+sleep infinity
