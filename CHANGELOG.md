@@ -47,3 +47,7 @@
 ## 0.2.46
 - Fix config variable scoping and paho-mqtt callback API version in mqtt_media_player.py
 - Bump version to 0.2.46
+
+## 0.2.47
+- Fix paho-mqtt Client constructor to use keyword arguments for client_id and callback_api_version
+- Bump version to 0.2.47
