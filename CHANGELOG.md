@@ -35,3 +35,7 @@
 ## 0.2.43
 - Remove VLC from Dockerfile (no longer needed)
 - Bump version to 0.2.43
+
+## 0.2.44
+- Add check and delay in run.sh to wait for USB audio device before creating remap sinks
+- Bump version to 0.2.44

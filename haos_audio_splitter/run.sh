@@ -1,11 +1,27 @@
 #!/bin/bash
 
+# Wait for USB audio device to appear in PulseAudio
+USB_SINK="alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo"
+MAX_WAIT=30
+WAITED=0
+while ! pactl list short sinks | grep -q "$USB_SINK"; do
+    echo "Waiting for USB audio device ($USB_SINK) to appear..."
+    sleep 1
+    WAITED=$((WAITED+1))
+    if [ $WAITED -ge $MAX_WAIT ]; then
+        echo "USB audio device not found after $MAX_WAIT seconds. Exiting."
+        exit 1
+    fi
+done
+
+echo "USB audio device found: $USB_SINK"
+
 # Clean up any old remap sinks
 pactl list short modules | grep 'module-remap-sink' | awk '{print $1}' | xargs -r -n1 pactl unload-module
 
 # Create left-only and right-only remap sinks with clear names
-pactl load-module module-remap-sink sink_name=haos_left_output sink_properties=device.description="HAOS Left Output" master=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo channels=2 channel_map=front-left,front-left
-pactl load-module module-remap-sink sink_name=haos_right_output sink_properties=device.description="HAOS Right Output" master=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo channels=2 channel_map=front-right,front-right
+pactl load-module module-remap-sink sink_name=haos_left_output sink_properties=device.description="HAOS Left Output" master=$USB_SINK channels=2 channel_map=front-left,front-left
+pactl load-module module-remap-sink sink_name=haos_right_output sink_properties=device.description="HAOS Right Output" master=$USB_SINK channels=2 channel_map=front-right,front-right
 
 echo "Created PulseAudio sinks: HAOS Left Output and HAOS Right Output."
 
