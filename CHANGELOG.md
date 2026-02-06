@@ -27,3 +27,11 @@
 ## 0.2.41
 - Remove ladspa-sdk and swh-plugins from Dockerfile to fix build errors
 - Only install required packages for MQTT and playback
+
+## 0.2.42
+- Add --break-system-packages to pip3 install in Dockerfile to fix externally-managed-environment error
+- Bump version to 0.2.42
+
+## 0.2.43
+- Remove VLC from Dockerfile (no longer needed)
+- Bump version to 0.2.43
