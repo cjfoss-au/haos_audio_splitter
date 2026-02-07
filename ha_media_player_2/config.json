@@ -1,0 +1,25 @@
+{
+  "name": "HA VLC Player 2",
+  "version": "0.1.17",
+  "slug": "ha_media_player_2",
+  "description": "A VLC media player addon for home assistant with user-configurable port and password.",
+  "startup": "services",
+  "boot": "auto",
+  "arch": ["amd64", "armv7", "aarch64"],
+  
+  
+  "schema": {
+    "telnet_password": "password",
+    "telnet_port": "int"
+  },
+  "options": {
+    "telnet_password": "vlcpass",
+    "telnet_port": 4213
+  },
+  "ingress": false,
+  "host_network": true,
+  "privileged": ["SYS_RAWIO", "DAC_READ_SEARCH"],
+  "audio": true,
+  "map": ["config:rw", "ssl:rw", "media:rw"],
+  "url": "https://github.com/cjfoss-au/haos_audio_splitter"
+}

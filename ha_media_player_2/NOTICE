@@ -1,0 +1,12 @@
+# Third-Party Software and License Acknowledgements
+
+This Home Assistant addon uses the following third-party software:
+
+- **VLC media player** (GPL-2.0): https://www.videolan.org/vlc/  
+  VLC is licensed under the GNU General Public License v2.0. See https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+- **PulseAudio** (LGPL-2.1+): https://www.freedesktop.org/wiki/Software/PulseAudio/  
+  PulseAudio is licensed under the GNU Lesser General Public License v2.1 or later. See https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
+- **Debian Base Image**: https://www.debian.org/
+- **Home Assistant Add-on Base Image**: https://github.com/home-assistant/docker-base
+
+You must comply with the licenses of these dependencies when distributing this addon. This addon itself is licensed under the MIT License (see LICENSE file).
