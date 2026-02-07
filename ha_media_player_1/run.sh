@@ -21,7 +21,7 @@ fi
 
 echo "Starting VLC with Telnet interface on sink: $AUDIO_OUTPUT, port: $TELNET_PORT"
 
-cvlc --intf telnet --telnet-password "$TELNET_PASSWORD" --telnet-port "$TELNET_PORT" --aout=alsa --alsa-audio-device="$AUDIO_OUTPUT" --no-daemon --no-plugins-cache --no-dbus &
+/usr/bin/vlc-wrapper --intf telnet --telnet-password "$TELNET_PASSWORD" --telnet-port "$TELNET_PORT" --aout=alsa --alsa-audio-device="$AUDIO_OUTPUT" --no-daemon --no-plugins-cache --no-dbus &
 
 echo "VLC Telnet interface running on port $TELNET_PORT. Use Home Assistant VLC integration to control playback."
 

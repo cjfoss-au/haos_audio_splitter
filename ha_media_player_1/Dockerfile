@@ -10,5 +10,4 @@ RUN useradd -m -s /bin/bash vlcuser \
     && mkdir -p /data /media /ssl \
     && chown -R vlcuser:vlcuser /data /media /ssl || true
 RUN chmod +x /run.sh
-USER vlcuser
 ENTRYPOINT ["/run.sh"]
