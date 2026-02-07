@@ -2,15 +2,20 @@
 
 export PULSE_SERVER=unix:/run/audio/pulse.sock
 
-AUDIO_OUTPUT=$(jq -r '.audio_output' /data/options.json)
+# Read options from Home Assistant UI
+TELNET_PASSWORD=$(jq -r '.telnet_password // empty' /data/options.json)
+TELNET_PORT=$(jq -r '.telnet_port // empty' /data/options.json)
+AUDIO_OUTPUT=$(jq -r '.audio_output // empty' /data/options.json)
+
+# AUDIO_OUTPUT fallback remains for backward compatibility
 if [ -z "$AUDIO_OUTPUT" ] || [ "$AUDIO_OUTPUT" = "null" ]; then
   AUDIO_OUTPUT="default"
 fi
 
-echo "Starting VLC with Telnet interface on sink: $AUDIO_OUTPUT"
+echo "Starting VLC with Telnet interface on sink: $AUDIO_OUTPUT, port: $TELNET_PORT"
 
- cvlc --intf telnet --telnet-password "$VLC_TELNET_PASSWORD" --telnet-port "$VLC_TELNET_PORT" --aout=alsa --alsa-audio-device="$AUDIO_OUTPUT" --no-daemon --no-plugins-cache &
+cvlc --intf telnet --telnet-password "$TELNET_PASSWORD" --telnet-port "$TELNET_PORT" --aout=alsa --alsa-audio-device="$AUDIO_OUTPUT" --no-daemon --no-plugins-cache --no-dbus --no-global-keyboard &
 
-echo "VLC Telnet interface running on port 4212. Use Home Assistant VLC integration to control playback."
+echo "VLC Telnet interface running on port $TELNET_PORT. Use Home Assistant VLC integration to control playback."
 
 tail -f /dev/null
