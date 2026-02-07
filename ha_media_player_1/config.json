@@ -1,6 +1,6 @@
 {
   "name": "HA Media Player 1",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "slug": "ha_media_player_1",
   "description": "A basic media player addon with selectable audio output.",
   "startup": "services",
