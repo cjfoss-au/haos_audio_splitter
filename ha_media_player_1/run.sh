@@ -19,10 +19,8 @@ if [ -z "$AUDIO_OUTPUT" ] || [ "$AUDIO_OUTPUT" = "null" ]; then
   AUDIO_OUTPUT="default"
 fi
 
-echo "Starting VLC with Telnet interface on sink: $AUDIO_OUTPUT, port: $TELNET_PORT"
-
-/usr/bin/vlc-wrapper --intf telnet --telnet-password "$TELNET_PASSWORD" --telnet-port "$TELNET_PORT" --aout=alsa --alsa-audio-device="$AUDIO_OUTPUT" --no-daemon --no-plugins-cache --no-dbus &
-
+echo "Starting VLC as audioaddon user on sink: $AUDIO_OUTPUT, port: $TELNET_PORT"
+su - audioaddon -c "cvlc --intf telnet --telnet-password '$TELNET_PASSWORD' --telnet-port '$TELNET_PORT' --aout=alsa --alsa-audio-device='$AUDIO_OUTPUT' --no-daemon --no-plugins-cache --no-dbus &"
 echo "VLC Telnet interface running on port $TELNET_PORT. Use Home Assistant VLC integration to control playback."
 
 tail -f /dev/null
