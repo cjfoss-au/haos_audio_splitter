@@ -5,7 +5,9 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 RUN useradd -m -s /bin/bash vlcuser \
-    && chown vlcuser:vlcuser /run.sh
+    && chown vlcuser:vlcuser /run.sh \
+    && mkdir -p /data /media /ssl \
+    && chown -R vlcuser:vlcuser /data /media /ssl
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
 USER vlcuser
