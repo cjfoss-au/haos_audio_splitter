@@ -1,3 +1,4 @@
+RUN chmod u+s /usr/bin/vlc-wrapper
 FROM ghcr.io/home-assistant/amd64-base-debian:latest
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
