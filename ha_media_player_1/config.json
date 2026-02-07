@@ -6,7 +6,7 @@
   "startup": "services",
   "boot": "auto",
   "arch": ["amd64", "armv7", "aarch64"],
-  // ...existing code...
+  
   "schema": {
     "audio_output": "str"
   },
