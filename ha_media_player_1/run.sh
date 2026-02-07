@@ -2,6 +2,13 @@
 
 export PULSE_SERVER=unix:/run/audio/pulse.sock
 
+
+# Diagnostic: print permissions and contents of /data/options.json
+echo "[DIAG] Listing /data and permissions:"
+ls -l /data
+echo "[DIAG] Showing /data/options.json contents:"
+cat /data/options.json || echo "[DIAG] Could not read /data/options.json"
+
 # Read options from Home Assistant UI
 TELNET_PASSWORD=$(jq -r '.telnet_password // empty' /data/options.json)
 TELNET_PORT=$(jq -r '.telnet_port // empty' /data/options.json)
