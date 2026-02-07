@@ -4,6 +4,9 @@ RUN apt-get update \
         pulseaudio pulseaudio-utils vlc \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+RUN useradd -m -s /bin/bash vlcuser \
+    && chown vlcuser:vlcuser /run.sh
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
+USER vlcuser
 ENTRYPOINT ["/run.sh"]
