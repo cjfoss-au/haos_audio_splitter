@@ -1,0 +1,21 @@
+{
+  "name": "HA Media Player 1",
+  "version": "0.1.0",
+  "slug": "ha_media_player_1",
+  "description": "A basic media player addon with selectable audio output.",
+  "startup": "services",
+  "boot": "auto",
+  "arch": ["amd64", "armv7", "aarch64"],
+  "options": {
+    "audio_output": "default"
+  },
+  "schema": {
+    "audio_output": "str"
+  },
+  "ingress": false,
+  "host_network": true,
+  "privileged": ["SYS_RAWIO", "DAC_READ_SEARCH"],
+  "audio": true,
+  "map": ["config:rw", "ssl:rw", "media:rw"],
+  "url": "https://github.com/your-repo/ha_media_player_1"
+}
